@@ -1,10 +1,13 @@
+#![allow(non_camel_case_types)]
 use std::fs;
 use std::fs::File;
 use std::io::prelude::*;
 use chrono::Local;
 
+
 pub fn hello(query: &str) {
     println!("Hello {}", query);
+    // name: String::from("greet"), desc: String::from("Greets the name of the person")
 }
 
 pub fn no_cmd() {
@@ -34,8 +37,9 @@ pub fn create(file: &std::path::Path , text: &str, display: std::path::Display) 
     }
 }
 
-pub fn delete(path: &str) -> std::io::Result<()> {
-    fs::remove_file(&path)?;
+
+pub fn delete(path: &str) -> std::io::Result<()>{
+    fs::remove_file(&path).expect("Something went wrong");
     println!("Sucessfully deleted {}", path);
     Ok(())
 }
@@ -44,11 +48,23 @@ pub fn reveal() {
     let paths = fs::read_dir("./").unwrap();
 
     for path in paths {
-        println!("{}", path.unwrap().path().display())
+        println!("{}", path.unwrap().path().display());
     }
 }
 
 pub fn date() {
     let local_time = Local::now();
     println!("{}", local_time);
+}
+
+
+pub fn help() {
+    println!("All commands: ");
+    println!("  greet   Greets the name of the person specified");
+    println!("  math    Do simple 2 number mathematics");
+    println!("  create  Create a file in the current directory with some text to be inserted in it");
+    println!("  reveal  Shows all the files and subdirectories in the current directory");
+    println!("  delete  Delete the specified file in the current directory");
+    println!("  date    Show the local date and time");
+    println!("  --help  Shows this message")
 }

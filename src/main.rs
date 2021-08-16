@@ -11,10 +11,11 @@ fn main() {
     match try_main() {
         Some(_) => {}, //everything went well
         None => {
-            println!("Something went wrong");
+            println!("Please type '--help' to get a list of all commands and how to use them");
         }
     }
 }
+
 
 fn try_main() -> Option<()> {
     let args: Vec<String> = env::args().collect();
@@ -50,8 +51,13 @@ fn try_main() -> Option<()> {
         }
         "date" => {
             commands::date();
+        },
+        "--help" => {
+            commands::help();
+        },
+        &_ => {
+            commands::no_cmd();
         }
-        &_ => commands::no_cmd()
     }
     Some(())
 }
